@@ -97,8 +97,8 @@ if __name__ == '__main__':
     # Import data
 
 
-    EEG_all = np.load('your path/data/EEG_all_epochs.npy')
-    noise_all = np.load('your path/data/EMG_all_epochs.npy')
+    EEG_all = np.load('/data/EEG_all_epochs.npy')
+    noise_all = np.load('/data/EMG_all_epochs.npy')
     noiseEEG_train, EEG_train, noiseEEG_test, EEG_test, test_std_VALUE = data_prepare(EEG_all, noise_all, combin_num,
                                                                                       train_num, validation_num)
     datanum = int(EEG_all.shape[1])

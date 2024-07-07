@@ -19,7 +19,7 @@ train_num = 4000   # how many trails for train
 validation_num = 100     # how many trails for validation 
 combin_num = 10    # combin EEG and noise ? times
 denoise_network = 'DeT' #(our model)    #   fcNN   &  simple_CNN_pro   & Simple_CNN   &    Complex_CNN    &    RNN_lstm
-result_location = '/content/EEGDnet/benchmark_networks/NN_result/' #  Where to export network results
+result_location = '/root/EEGDnet/benchmark_networks/NN_result/' #  Where to export network results
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
 
@@ -84,10 +84,10 @@ def train(denoiseNN, noiseEEG_train, EEG_train, noiseEEG_test, EEG_test, epochs)
         writer.add_scalar('data/test_loss', test_loss, epoch)
 
         if best_test_loss > test_loss:
-            torch.save(denoiseNN.state_dict(), "/content/EEGDnet/EEG_Trans/" + "best" + ".pth")
+            torch.save(denoiseNN.state_dict(), "/root/EEGDnet/EEG_Trans/" + "best" + ".pth")
             best_test_loss = test_loss
         if epoch % 10 == 9:
-            torch.save(denoiseNN.state_dict(), "/content/EEGDnet/EEG_Trans/" + "EPOCH" + str(epoch) + ".pth")
+            torch.save(denoiseNN.state_dict(), "/root/EEGDnet/EEG_Trans/" + "EPOCH" + str(epoch) + ".pth")
         print('\nEpoch #: {}/{}, Time taken: {} secs,\n  Losses: train_mse= {},test_mse={}'\
                  .format(epoch+1, epochs, time.time()-start, train_loss,  test_loss))
 
@@ -97,8 +97,8 @@ if __name__ == '__main__':
     # Import data
 
 
-    EEG_all = np.load('/content/EEGDnet/data/EEG_all_epochs.npy')
-    noise_all = np.load('/content/EEGDnet/data/EMG_all_epochs.npy')
+    EEG_all = np.load('/root/EEGDnet/data/EEG_all_epochs.npy')
+    noise_all = np.load('/root/EEGDnet/data/EMG_all_epochs.npy')
     noiseEEG_train, EEG_train, noiseEEG_test, EEG_test, test_std_VALUE = data_prepare(EEG_all, noise_all, combin_num,
                                                                                       train_num, validation_num)
     datanum = int(EEG_all.shape[1])
